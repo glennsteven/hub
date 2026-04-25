@@ -2,9 +2,9 @@ edition = "2023";
 
 package glennsteven.config.v1;
 
-option go_package = "github.com/glennsteven/hub/go/configv1/configpb;configpb";
-
 import "google/protobuf/duration.proto";
+
+option go_package = "github.com/glennsteven/hub/go/configv1/configpb;configpb";
 
 message HttpServer {
   string host = 1;

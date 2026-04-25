@@ -20,6 +20,7 @@ const _ = grpc.SupportPackageIsVersion9
 
 const (
 	FeatureGateService_IsFeatureActive_FullMethodName = "/glennsteven.featuregate.v1.FeatureGateService/IsFeatureActive"
+	FeatureGateService_DisableFeature_FullMethodName  = "/glennsteven.featuregate.v1.FeatureGateService/DisableFeature"
 )
 
 // FeatureGateServiceClient is the client API for FeatureGateService service.
@@ -27,6 +28,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type FeatureGateServiceClient interface {
 	IsFeatureActive(ctx context.Context, in *IsFeatureActiveRequest, opts ...grpc.CallOption) (*IsFeatureActiveResponse, error)
+	DisableFeature(ctx context.Context, in *DisableFeatureRequest, opts ...grpc.CallOption) (*DisableFeatureResponse, error)
 }
 
 type featureGateServiceClient struct {
@@ -47,11 +49,22 @@ func (c *featureGateServiceClient) IsFeatureActive(ctx context.Context, in *IsFe
 	return out, nil
 }
 
+func (c *featureGateServiceClient) DisableFeature(ctx context.Context, in *DisableFeatureRequest, opts ...grpc.CallOption) (*DisableFeatureResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DisableFeatureResponse)
+	err := c.cc.Invoke(ctx, FeatureGateService_DisableFeature_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // FeatureGateServiceServer is the server API for FeatureGateService service.
 // All implementations should embed UnimplementedFeatureGateServiceServer
 // for forward compatibility.
 type FeatureGateServiceServer interface {
 	IsFeatureActive(context.Context, *IsFeatureActiveRequest) (*IsFeatureActiveResponse, error)
+	DisableFeature(context.Context, *DisableFeatureRequest) (*DisableFeatureResponse, error)
 }
 
 // UnimplementedFeatureGateServiceServer should be embedded to have
@@ -63,6 +76,9 @@ type UnimplementedFeatureGateServiceServer struct{}
 
 func (UnimplementedFeatureGateServiceServer) IsFeatureActive(context.Context, *IsFeatureActiveRequest) (*IsFeatureActiveResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method IsFeatureActive not implemented")
+}
+func (UnimplementedFeatureGateServiceServer) DisableFeature(context.Context, *DisableFeatureRequest) (*DisableFeatureResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method DisableFeature not implemented")
 }
 func (UnimplementedFeatureGateServiceServer) testEmbeddedByValue() {}
 
@@ -102,6 +118,24 @@ func _FeatureGateService_IsFeatureActive_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _FeatureGateService_DisableFeature_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DisableFeatureRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FeatureGateServiceServer).DisableFeature(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FeatureGateService_DisableFeature_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FeatureGateServiceServer).DisableFeature(ctx, req.(*DisableFeatureRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // FeatureGateService_ServiceDesc is the grpc.ServiceDesc for FeatureGateService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -112,6 +146,10 @@ var FeatureGateService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "IsFeatureActive",
 			Handler:    _FeatureGateService_IsFeatureActive_Handler,
+		},
+		{
+			MethodName: "DisableFeature",
+			Handler:    _FeatureGateService_DisableFeature_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -2,18 +2,33 @@ edition = "2023";
 
 package glennsteven.featuregate.v1;
 
+import "buf/validate/validate.proto";
+
 option go_package = "github.com/glennsteven/hub/go/featuregatev1/featuregatepb";
+option features.field_presence = IMPLICIT;
 
 service FeatureGateService {
   rpc IsFeatureActive(IsFeatureActiveRequest) returns (IsFeatureActiveResponse);
+  rpc DisableFeature(DisableFeatureRequest) returns (DisableFeatureResponse);
 }
 
 message IsFeatureActiveRequest {
-  string name = 1;
-  string region = 2;
+  string name = 1 [(buf.validate.field).required = true];
+  string region = 2 [(buf.validate.field).required = true, (buf.validate.field).string = {min_len: 3}];
+  string user_id = 3;
 }
 
 message IsFeatureActiveResponse {
   bool active = 1;
   string reason = 2;
+}
+
+message DisableFeatureRequest {
+  string name = 1;
+  string region = 2;
+}
+
+message DisableFeatureResponse {
+  bool active = 1;
+  string region = 2;
 }

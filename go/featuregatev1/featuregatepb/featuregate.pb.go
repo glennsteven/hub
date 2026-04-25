@@ -7,6 +7,7 @@
 package featuregatepb
 
 import (
+	_ "buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -23,8 +24,9 @@ const (
 
 type IsFeatureActiveRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Name          *string                `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
-	Region        *string                `protobuf:"bytes,2,opt,name=region" json:"region,omitempty"`
+	Name          string                 `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
+	Region        string                 `protobuf:"bytes,2,opt,name=region" json:"region,omitempty"`
+	UserId        string                 `protobuf:"bytes,3,opt,name=user_id,json=userId" json:"user_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -60,23 +62,30 @@ func (*IsFeatureActiveRequest) Descriptor() ([]byte, []int) {
 }
 
 func (x *IsFeatureActiveRequest) GetName() string {
-	if x != nil && x.Name != nil {
-		return *x.Name
+	if x != nil {
+		return x.Name
 	}
 	return ""
 }
 
 func (x *IsFeatureActiveRequest) GetRegion() string {
-	if x != nil && x.Region != nil {
-		return *x.Region
+	if x != nil {
+		return x.Region
+	}
+	return ""
+}
+
+func (x *IsFeatureActiveRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
 	}
 	return ""
 }
 
 type IsFeatureActiveResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Active        *bool                  `protobuf:"varint,1,opt,name=active" json:"active,omitempty"`
-	Reason        *string                `protobuf:"bytes,2,opt,name=reason" json:"reason,omitempty"`
+	Active        bool                   `protobuf:"varint,1,opt,name=active" json:"active,omitempty"`
+	Reason        string                 `protobuf:"bytes,2,opt,name=reason" json:"reason,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -112,15 +121,119 @@ func (*IsFeatureActiveResponse) Descriptor() ([]byte, []int) {
 }
 
 func (x *IsFeatureActiveResponse) GetActive() bool {
-	if x != nil && x.Active != nil {
-		return *x.Active
+	if x != nil {
+		return x.Active
 	}
 	return false
 }
 
 func (x *IsFeatureActiveResponse) GetReason() string {
-	if x != nil && x.Reason != nil {
-		return *x.Reason
+	if x != nil {
+		return x.Reason
+	}
+	return ""
+}
+
+type DisableFeatureRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Name          string                 `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
+	Region        string                 `protobuf:"bytes,2,opt,name=region" json:"region,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DisableFeatureRequest) Reset() {
+	*x = DisableFeatureRequest{}
+	mi := &file_glennsteven_featuregate_v1_featuregate_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DisableFeatureRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DisableFeatureRequest) ProtoMessage() {}
+
+func (x *DisableFeatureRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_glennsteven_featuregate_v1_featuregate_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DisableFeatureRequest.ProtoReflect.Descriptor instead.
+func (*DisableFeatureRequest) Descriptor() ([]byte, []int) {
+	return file_glennsteven_featuregate_v1_featuregate_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *DisableFeatureRequest) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *DisableFeatureRequest) GetRegion() string {
+	if x != nil {
+		return x.Region
+	}
+	return ""
+}
+
+type DisableFeatureResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Active        bool                   `protobuf:"varint,1,opt,name=active" json:"active,omitempty"`
+	Region        string                 `protobuf:"bytes,2,opt,name=region" json:"region,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DisableFeatureResponse) Reset() {
+	*x = DisableFeatureResponse{}
+	mi := &file_glennsteven_featuregate_v1_featuregate_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DisableFeatureResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DisableFeatureResponse) ProtoMessage() {}
+
+func (x *DisableFeatureResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_glennsteven_featuregate_v1_featuregate_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DisableFeatureResponse.ProtoReflect.Descriptor instead.
+func (*DisableFeatureResponse) Descriptor() ([]byte, []int) {
+	return file_glennsteven_featuregate_v1_featuregate_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *DisableFeatureResponse) GetActive() bool {
+	if x != nil {
+		return x.Active
+	}
+	return false
+}
+
+func (x *DisableFeatureResponse) GetRegion() string {
+	if x != nil {
+		return x.Region
 	}
 	return ""
 }
@@ -129,15 +242,24 @@ var File_glennsteven_featuregate_v1_featuregate_proto protoreflect.FileDescripto
 
 const file_glennsteven_featuregate_v1_featuregate_proto_rawDesc = "" +
 	"\n" +
-	",glennsteven/featuregate/v1/featuregate.proto\x12\x1aglennsteven.featuregate.v1\"D\n" +
-	"\x16IsFeatureActiveRequest\x12\x12\n" +
-	"\x04name\x18\x01 \x01(\tR\x04name\x12\x16\n" +
-	"\x06region\x18\x02 \x01(\tR\x06region\"I\n" +
+	",glennsteven/featuregate/v1/featuregate.proto\x12\x1aglennsteven.featuregate.v1\x1a\x1bbuf/validate/validate.proto\"q\n" +
+	"\x16IsFeatureActiveRequest\x12\x1a\n" +
+	"\x04name\x18\x01 \x01(\tB\x06\xbaH\x03\xc8\x01\x01R\x04name\x12\"\n" +
+	"\x06region\x18\x02 \x01(\tB\n" +
+	"\xbaH\a\xc8\x01\x01r\x02\x10\x03R\x06region\x12\x17\n" +
+	"\auser_id\x18\x03 \x01(\tR\x06userId\"I\n" +
 	"\x17IsFeatureActiveResponse\x12\x16\n" +
 	"\x06active\x18\x01 \x01(\bR\x06active\x12\x16\n" +
-	"\x06reason\x18\x02 \x01(\tR\x06reason2\x90\x01\n" +
+	"\x06reason\x18\x02 \x01(\tR\x06reason\"C\n" +
+	"\x15DisableFeatureRequest\x12\x12\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\x12\x16\n" +
+	"\x06region\x18\x02 \x01(\tR\x06region\"H\n" +
+	"\x16DisableFeatureResponse\x12\x16\n" +
+	"\x06active\x18\x01 \x01(\bR\x06active\x12\x16\n" +
+	"\x06region\x18\x02 \x01(\tR\x06region2\x89\x02\n" +
 	"\x12FeatureGateService\x12z\n" +
-	"\x0fIsFeatureActive\x122.glennsteven.featuregate.v1.IsFeatureActiveRequest\x1a3.glennsteven.featuregate.v1.IsFeatureActiveResponseB;Z9github.com/glennsteven/hub/go/featuregatev1/featuregatepbb\beditionsp\xe8\a"
+	"\x0fIsFeatureActive\x122.glennsteven.featuregate.v1.IsFeatureActiveRequest\x1a3.glennsteven.featuregate.v1.IsFeatureActiveResponse\x12w\n" +
+	"\x0eDisableFeature\x121.glennsteven.featuregate.v1.DisableFeatureRequest\x1a2.glennsteven.featuregate.v1.DisableFeatureResponseB@Z9github.com/glennsteven/hub/go/featuregatev1/featuregatepb\x92\x03\x02\b\x02b\beditionsp\xe8\a"
 
 var (
 	file_glennsteven_featuregate_v1_featuregate_proto_rawDescOnce sync.Once
@@ -151,16 +273,20 @@ func file_glennsteven_featuregate_v1_featuregate_proto_rawDescGZIP() []byte {
 	return file_glennsteven_featuregate_v1_featuregate_proto_rawDescData
 }
 
-var file_glennsteven_featuregate_v1_featuregate_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_glennsteven_featuregate_v1_featuregate_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_glennsteven_featuregate_v1_featuregate_proto_goTypes = []any{
 	(*IsFeatureActiveRequest)(nil),  // 0: glennsteven.featuregate.v1.IsFeatureActiveRequest
 	(*IsFeatureActiveResponse)(nil), // 1: glennsteven.featuregate.v1.IsFeatureActiveResponse
+	(*DisableFeatureRequest)(nil),   // 2: glennsteven.featuregate.v1.DisableFeatureRequest
+	(*DisableFeatureResponse)(nil),  // 3: glennsteven.featuregate.v1.DisableFeatureResponse
 }
 var file_glennsteven_featuregate_v1_featuregate_proto_depIdxs = []int32{
 	0, // 0: glennsteven.featuregate.v1.FeatureGateService.IsFeatureActive:input_type -> glennsteven.featuregate.v1.IsFeatureActiveRequest
-	1, // 1: glennsteven.featuregate.v1.FeatureGateService.IsFeatureActive:output_type -> glennsteven.featuregate.v1.IsFeatureActiveResponse
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
+	2, // 1: glennsteven.featuregate.v1.FeatureGateService.DisableFeature:input_type -> glennsteven.featuregate.v1.DisableFeatureRequest
+	1, // 2: glennsteven.featuregate.v1.FeatureGateService.IsFeatureActive:output_type -> glennsteven.featuregate.v1.IsFeatureActiveResponse
+	3, // 3: glennsteven.featuregate.v1.FeatureGateService.DisableFeature:output_type -> glennsteven.featuregate.v1.DisableFeatureResponse
+	2, // [2:4] is the sub-list for method output_type
+	0, // [0:2] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -177,7 +303,7 @@ func file_glennsteven_featuregate_v1_featuregate_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_glennsteven_featuregate_v1_featuregate_proto_rawDesc), len(file_glennsteven_featuregate_v1_featuregate_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
