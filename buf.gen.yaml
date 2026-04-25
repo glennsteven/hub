@@ -5,4 +5,4 @@ plugins:
     opt: [paths=import, module=github.com/glennsteven/hub/go]
   - local: protoc-gen-go-grpc
     out: go
-    opt: [paths=import, module=github.com/glennsteven/hub/go]
+    opt: [paths=import, module=github.com/glennsteven/hub/go, require_unimplemented_servers=false]

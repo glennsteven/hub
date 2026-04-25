@@ -48,14 +48,13 @@ func (c *featureGateServiceClient) IsFeatureActive(ctx context.Context, in *IsFe
 }
 
 // FeatureGateServiceServer is the server API for FeatureGateService service.
-// All implementations must embed UnimplementedFeatureGateServiceServer
+// All implementations should embed UnimplementedFeatureGateServiceServer
 // for forward compatibility.
 type FeatureGateServiceServer interface {
 	IsFeatureActive(context.Context, *IsFeatureActiveRequest) (*IsFeatureActiveResponse, error)
-	mustEmbedUnimplementedFeatureGateServiceServer()
 }
 
-// UnimplementedFeatureGateServiceServer must be embedded to have
+// UnimplementedFeatureGateServiceServer should be embedded to have
 // forward compatible implementations.
 //
 // NOTE: this should be embedded by value instead of pointer to avoid a nil
@@ -65,8 +64,7 @@ type UnimplementedFeatureGateServiceServer struct{}
 func (UnimplementedFeatureGateServiceServer) IsFeatureActive(context.Context, *IsFeatureActiveRequest) (*IsFeatureActiveResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method IsFeatureActive not implemented")
 }
-func (UnimplementedFeatureGateServiceServer) mustEmbedUnimplementedFeatureGateServiceServer() {}
-func (UnimplementedFeatureGateServiceServer) testEmbeddedByValue()                            {}
+func (UnimplementedFeatureGateServiceServer) testEmbeddedByValue() {}
 
 // UnsafeFeatureGateServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to FeatureGateServiceServer will
