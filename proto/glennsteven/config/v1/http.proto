@@ -1,0 +1,19 @@
+edition = "2023";
+
+package glennsteven.config.v1;
+
+option go_package = "github.com/glennsteven/hub/go/configv1/configpb;configpb";
+
+import "google/protobuf/duration.proto";
+
+message HttpServer {
+  string host = 1;
+  int32 port = 2;
+  google.protobuf.Duration read_timeout = 3;
+  google.protobuf.Duration write_timeout = 4;
+  google.protobuf.Duration shutdown_grace_period_timeout = 5;
+}
+
+message HttpClient {
+  string address = 1;
+}

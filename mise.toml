@@ -1,0 +1,17 @@
+[tools]
+buf = "1.68.4"
+"go:google.golang.org/grpc/cmd/protoc-gen-go-grpc" = "v1.6.1"
+"go:google.golang.org/protobuf/cmd/protoc-gen-go" = "v1.36.11"
+
+[tasks.gen]
+run = [
+    "buf generate"
+]
+depends_post=[
+    "go:tidy"
+]
+
+[tasks."go:tidy"]
+run = [
+    "go -C go mod tidy"
+]

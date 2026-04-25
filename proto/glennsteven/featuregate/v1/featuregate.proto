@@ -1,0 +1,19 @@
+edition = "2023";
+
+package glennsteven.featuregate.v1;
+
+option go_package = "github.com/glennsteven/hub/go/featuregatev1/featuregatepb";
+
+service FeatureGateService {
+  rpc IsFeatureActive(IsFeatureActiveRequest) returns (IsFeatureActiveResponse);
+}
+
+message IsFeatureActiveRequest {
+  string name = 1;
+  string region = 2;
+}
+
+message IsFeatureActiveResponse {
+  bool active = 1;
+  string reason = 2;
+}
